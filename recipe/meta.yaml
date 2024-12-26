@@ -7,11 +7,11 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/lb-nightly-db-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/lb-nightly-db-{{ version }}.tar.gz
   sha256: fbc7e9144bf0f27d4e74055130959dd408b37b1de4effa63d7d4826a486df3d6
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
 
@@ -19,11 +19,11 @@ requirements:
   host:
     - pip
     - poetry-core >=1.0.0
-    - python >=3.6,<4.0
+    - python {{ python_min }}
   run:
     - cloudant >=2.14.0,<3.0.0
     - lb-nightly-configuration >=0.3,<1.0
-    - python >=3.6,<4.0
+    - python >={{ python_min }},<4.0
 
 test:
   imports:
@@ -33,6 +33,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://pypi.org/project/lb-nightly-db/
